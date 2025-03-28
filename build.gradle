@@ -1,29 +1,35 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.17.3'
+    id 'org.jetbrains.intellij.platform' version '2.4.0'
     id 'java'
 }
 
 group 'org.franciscode'
-version '1.9'
+version '1.10'
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    intellijPlatform {
+        create("IC", "2024.3")
+    }
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
-intellij {
-    version = '2024.3'
-}
-patchPluginXml {
-    changeNotes = """
+intellijPlatform {
+    pluginConfiguration {
+        version = "1.10"
+        ideaVersion {
+            sinceBuild = "231"
+            untilBuild = "251.*"
+        }
+        changeNotes = """
 <h1>Changelog for Moonlight JetBrains Theme</h1>
 
-<p><strong>📅 Release Date:</strong> November 13, 2024</p>
+<p><strong>📅 Release Date:</strong> March 28, 2025</p>
 
 <h2>🚀 What’s New</h2>
 
@@ -53,7 +59,5 @@ Francisco Marin</p>
 
 <p>Apologies once more for the delay in updates. I am committed to keeping the Moonlight JetBrains Theme updated and promise to stay on top of future enhancements and refinements.</p>
       """
-}
-test {
-    useJUnitPlatform()
+    }
 }
